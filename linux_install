@@ -1,6 +1,58 @@
 #!/bin/bash
+sudo pacman -S git pulseaudio pulseaudio-alsa pavucontrol xorg xorg-server xorg-xinit lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance zsh sxhkd ranger feh picom nitrogen networkmanager neovim xdg-user-dirs xf86-video-amdgpu materia-gtk-theme thunderbird    
 
-#useradd -m arif
+chsh -s /bin/zsh
+mkdir ~/code ~/dl ~/doc ~/go ~/junk ~/music ~/nas ~/pic ~/vid
+xdg-users-dirs-update
+git config --global user.name "Arif Hasanic"
+git config --global user.email "arif_hasanic@outlook.com"
+git config --global color.ui true
+git config --global core.editor nvim
 
-groupadd input
 
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+cd ..
+
+
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
+yay -S spotify visual-studio-code-bin twmn-git nerd-fonts-hack arc-icon-theme 
+
+
+git clone https://github.com/cookiieman/dwm
+git clone https://github.com/cookiieman/dwmblocks
+git clone https://github.com/cookiieman/st
+git clone https://git.suckless.org/dmenu
+
+cd dwm
+make && sudo make install
+cd ../dwmblocks
+make && sudo make install
+cd ../st
+make && sudo make install 
+cd ../dmenu
+make && sudo make install 
+
+chmod +x bin/*
+sudo mv bin/* /usr/local/bin
+
+mv config/* ~/.config/
+
+mv x11/* /etc/X11/xorg.conf.d/
+
+mv wallpaper.jpg ~/pic
+
+sudo mv lightdm/* /etc/lightdm/
+cp zshrc ~/.zshrc
+
+sudo systemctl enable NetworkManager 
+sudo systemctl enable lightdm 

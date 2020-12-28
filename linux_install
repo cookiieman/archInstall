@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#useradd -m arif
+
+groupadd input
+

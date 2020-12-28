@@ -1,0 +1,13 @@
+#!/bin/bash
+APPOINTMENT=$(calcurse -n | tail -n 1 )
+
+NAME=$(echo $APPOINTMENT | awk -F ' ' '{$1=""; print $0}')
+
+TIME=$(echo $APPOINTMENT | awk -F ' ' '{print $1}' | tr --delete '[]' )
+HOUR=$(echo "$TIME" | awk -F ':' '{print $1}' ) 
+MINUTE=$(echo "$TIME" | awk -F ':' '{print $2}' ) 
+
+if [[ $((24 - HOUR)) -eq 0 ]]; then
+    echo "  ($((60 - MINUTE)))$NAME"
+fi
+

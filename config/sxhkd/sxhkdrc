@@ -1,0 +1,21 @@
+super + {g,s,e,r,c,Print,a}
+    {brave,spotify,thunderbird,nautilus,code,flameshot screen r > /home/arif/pic/$(date +%d.%m.%Y-%H:%M:%S).png,pavucontrol}
+
+XF86Audio{Prev,Next,Stop,Play}
+	playerctl {previous,next, pause, play}; pkill -RTMIN+10 dwmblocks
+
+XF86Audio{Raise,Lower}Volume
+	amixer sset Master 5%{+,-}; pkill -RTMIN+10 dwmblocks
+
+button{10,11}
+	amixer sset Master 5%{+,-}; pkill -RTMIN+10 dwmblocks
+
+
+XF86AudioMute
+	amixer set Master toggle; pkill -RTMIN+10 dwmblocks
+
+XF86MonBrightnessDown
+	xbacklight -dec 15
+
+XF86MonBrightnessUp
+	xbacklight -inc 15

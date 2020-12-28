@@ -1,0 +1,25 @@
+#!/bin/bash
+
+DEVICE="/sys/class/backlight/amdgpu_bl0/brightness"
+CURRENT_BRIGHTNESS=$(cat $DEVICE) 
+
+
+#brighntess up
+if [[ $1 == "-inc" ]]; then
+    if [[ $CURRENT_BRIGHTNESS -ge 240 ]]; then
+        CURRENT_BRIGHTNESS=255
+    else
+    	CURRENT_BRIGHTNESS=$((CURRENT_BRIGHTNESS + 15))
+    fi
+elif [[ $1 == "-dec" ]]; then
+    if [[ $CURRENT_BRIGHTNESS -le 15 ]]; then
+	CURRENT_BRIGHTNESS=0
+    else
+        CURRENT_BRIGHTNESS=$((CURRENT_BRIGHTNESS - 15))
+    fi
+elif [[ $1 == -max ]]; then
+    CURRENT_BRIGHTNESS=255
+fi
+
+echo $CURRENT_BRIGHTNESS >> $DEVICE
+

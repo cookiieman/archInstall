@@ -1,0 +1,8 @@
+light-locker &
+sxhkd & 
+twmnd &
+picom -b &
+nitrogen --restore &
+dwmblocks &
+exec dwm
+

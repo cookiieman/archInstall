@@ -1,0 +1,6 @@
+[Default Applications]
+x-scheme-handler/eclipse+command x-scheme-handler/eclipse+mpc=_usr_lib_eclipse_.desktop
+application/uproject=com.epicgames.UnrealEngineEditor.desktop
+
+[Added Associations]
+text/plain=vim.desktop;

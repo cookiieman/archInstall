@@ -25,7 +25,7 @@ cd ..
 
 
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
-yay -S spotify visual-studio-code-bin twmn-git nerd-fonts-hack arc-icon-theme 
+yay -S spotify visual-studio-code-bin twmn-git nerd-fonts-hack arc-icon-theme zenstates-git
 
 
 git clone https://github.com/cookiieman/dwm
@@ -54,5 +54,9 @@ mv wallpaper.jpg ~/pic
 sudo mv lightdm/* /etc/lightdm/
 cp zshrc ~/.zshrc
 
+sudo mv disable_c6.service /etc/systemd/system/
+sudo systemctl enable disable_c6
+
+sudo mv zenstates.conf /etc/modules-load/
 sudo systemctl enable NetworkManager 
 sudo systemctl enable lightdm 

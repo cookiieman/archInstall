@@ -45,9 +45,9 @@ make && sudo make install
 chmod +x bin/*
 sudo mv bin/* /usr/local/bin
 
-mv config/* ~/.config/
+cp -fr config/* ~/.config/
 
-mv x11/* /etc/X11/xorg.conf.d/
+sudo cp -rf x11/* /etc/X11/xorg.conf.d/
 
 mv wallpaper.jpg ~/pic
 

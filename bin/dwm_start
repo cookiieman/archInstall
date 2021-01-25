@@ -1,8 +1,8 @@
-light-locker &
 sxhkd & 
 twmnd &
 picom -b &
 nitrogen --restore &
+musicLoop &
 dwmblocks &
 exec dwm
 

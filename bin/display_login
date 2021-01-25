@@ -1,7 +1,7 @@
 #!/bin/bash
 HDMI_CONNECTED=$(xrandr | sed -n '/DisplayPort-2 connected/p') 
 DP_CONNECTED=$(xrandr | sed -n '/DisplayPort-1 connected/p') 
-
+#test
 
 if [ -n "$DP_CONNECTED" ]; then
     if [ -n "$HDMI_CONNECTED" ]; then 

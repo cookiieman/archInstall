@@ -1,6 +1,17 @@
 #!/bin/bash
-sudo pacman -S git pulseaudio pulseaudio-alsa pavucontrol xorg xorg-server xorg-xinit lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance zsh sxhkd ranger feh picom nitrogen networkmanager neovim xdg-user-dirs xf86-video-amdgpu materia-gtk-theme thunderbird    
 
+##################  installing programms  ####################
+sudo pacman -S git pulseaudio pulseaudio-alsa pavucontrol xorg xorg-server xorg-xinit lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance zsh sxhkd ranger feh picom nitrogen networkmanager neovim xdg-user-dirs xf86-video-amdgpu materia-gtk-theme thunderbird cmake 
+
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+cd ..
+
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
+yay -S spotify visual-studio-code-bin twmn-git nerd-fonts-hack arc-icon-theme zenstates-git
+
+####################   configure git and shell   #############
 chsh -s /bin/zsh
 mkdir ~/code ~/dl ~/doc ~/go ~/junk ~/music ~/nas ~/pic ~/vid
 xdg-users-dirs-update
@@ -9,30 +20,24 @@ git config --global user.email "arif_hasanic@outlook.com"
 git config --global color.ui true
 git config --global core.editor nvim
 
-
+#-----------------installing vimplug--------------------------#
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-
+#---------------------oh my zsh-------------------------------#
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
+#------------------------p10k---------------------------------#
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+#-----------------headset control-----------------------------#
+git clone https://github.com/Sapd/HeadsetControl && cd HeadsetControl
+mkdir build && cd build
+cmake ..
+make
+sudo makke install
+cd ../..
 
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-cd ..
-
-
-curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
-yay -S spotify visual-studio-code-bin twmn-git nerd-fonts-hack arc-icon-theme zenstates-git
-
-
-git clone https://github.com/cookiieman/dwm
-git clone https://github.com/cookiieman/dwmblocks
-git clone https://github.com/cookiieman/st
-git clone https://git.suckless.org/dmenu
-
+##################   suckless   #############################
+git clone https://github.com/cookiieman/suckless.org
+cd suckless
 cd dwm
 make && sudo make install
 cd ../dwmblocks
@@ -41,22 +46,22 @@ cd ../st
 make && sudo make install 
 cd ../dmenu
 make && sudo make install 
+cd ..
 
+################   moving files   ###########################
 chmod +x bin/*
-sudo mv bin/* /usr/local/bin
+sudo cp -r bin/* /usr/local/bin
 
-cp -fr config/* ~/.config/
-
+cp -rf config/* ~/.config/
 sudo cp -rf x11/* /etc/X11/xorg.conf.d/
 
 mv wallpaper.jpg ~/pic
-
-sudo mv lightdm/* /etc/lightdm/
+sudo cp -r lightdm/* /etc/lightdm/
 cp zshrc ~/.zshrc
-
 sudo mv disable_c6.service /etc/systemd/system/
-sudo systemctl enable disable_c6
-
 sudo mv zenstates.conf /etc/modules-load/
+
+############### enabling services ##########################
+sudo systemctl enable disable_c6
 sudo systemctl enable NetworkManager 
 sudo systemctl enable lightdm 

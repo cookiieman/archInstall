@@ -1,0 +1,33 @@
+#!/bin/bash
+status=$(playerctl -p spotify status 2> /dev/null)
+artist=$(playerctl -p spotify metadata artist 2> /dev/null)
+title=$(playerctl -p spotify metadata title 2> /dev/null)
+symbol=""
+
+if [[ "$status" == "Playing" ]] ; then
+	status=""
+elif [[ "$status" == "Paused" ]] ; then
+	status=""
+else
+	status="offline"
+fi
+
+
+
+if [[ "$status" == "offline" && $BUTTON == 1 ]]; then
+	$(spotify &> /dev/null &)
+	sleep 2
+	pkill -RTMIN+11 dwmblocks
+elif [[ "$status" == "offline" && $BUTTON != 1 ]]; then 
+	echo ""
+else
+	case $BUTTON in
+    		1) playerctl previous;;
+    		2) playerctl play-pause;;
+    		3) playerctl next;;
+	esac
+	pkill -RTMIN+11 dwmblocks
+	echo "$status $title: $artist"
+fi
+
+
